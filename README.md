@@ -96,7 +96,7 @@ You can use [react-spring](https://www.react-spring.io/) to animate the scroll:
 ```javascript
 import React, { useRef, useCallback, useLayoutEffect } from 'react';
 import useStayScrolled from 'react-stay-scrolled';
-import { useSpring, animated } from 'react-spring';
+import { useSpring, animated } from '@react-spring/web';
 
 const SpringStayScrolled = ({
   provideControllers,
@@ -104,12 +104,11 @@ const SpringStayScrolled = ({
   getRunScroll,
 }) => {
   const ref = useRef(null);
-  const [{ scrollTop }, updateScroll] = useSpring(() => ({ scrollTop: 0 }));
-  const runScroll = useCallback(offset => updateScroll({
+  const [{ scrollTop }, animateScroll] = useSpring(() => ({ scrollTop: 0 }), []);
+  const runScroll = useCallback(offset => animateScroll.start({
     scrollTop: offset,
     from: { scrollTop: ref.current ? ref.current.scrollTop : 0 },
-    reset: true,
-  }), [updateScroll])
+  }), [animateScroll])
 
   const { scrollBottom } = useStayScrolled(ref, { runScroll });
 

@@ -1,6 +1,6 @@
 import React, { useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { useSpring, animated } from 'react-spring';
+import { useSpring, animated } from '@react-spring/web';
 
 import Velocity from 'velocity-animate';
 import jQuery from 'jquery';
@@ -41,10 +41,9 @@ export const velocityRunScroll = (dom) => (offset) => {
   );
 };
 
-export const springRunScroll = (updateScroll, dom) => (offset) => updateScroll({
+export const springRunScroll = (animateScroll, dom) => (offset) => animateScroll.start({
   scrollTop: offset,
   from: { scrollTop: dom.current ? dom.current.scrollTop : 0 },
-  reset: true,
   config: { duration },
 });
 
@@ -54,10 +53,10 @@ export const SpringTestComponent = ({
   getRunScroll,
 }) => {
   const ref = useRef(null);
-  const [{ scrollTop }, updateScroll] = useSpring(() => ({ scrollTop: 0 }));
+  const [{ scrollTop }, animateScroll] = useSpring(() => ({ scrollTop: 0 }), []);
   const runScroll = useMemo(
-    () => (getRunScroll ? getRunScroll(updateScroll, ref) : undefined),
-    [getRunScroll, updateScroll, ref],
+    () => (getRunScroll ? getRunScroll(animateScroll, ref) : undefined),
+    [getRunScroll, animateScroll, ref],
   );
 
   provideControllers(useStayScrolled(ref, { runScroll }));
