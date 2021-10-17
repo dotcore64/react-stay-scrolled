@@ -1,4 +1,4 @@
-import React, {
+import {
   StrictMode, useState, useRef, useEffect, useLayoutEffect, useMemo,
 } from 'react';
 import ReactDOM from 'react-dom';

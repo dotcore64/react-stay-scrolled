@@ -7,7 +7,7 @@ module.exports = api => ({
         }
       } : {}),
     }],
-    '@babel/react',
+    ['@babel/react', { runtime: "automatic" }],
   ],
   plugins: [
     'dev-expression',

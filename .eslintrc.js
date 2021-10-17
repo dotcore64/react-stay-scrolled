@@ -1,5 +1,5 @@
 module.exports = {
-  extends: 'airbnb',
+  extends: ['airbnb', 'plugin:react/jsx-runtime'],
   env: {
     browser: true,
   },
