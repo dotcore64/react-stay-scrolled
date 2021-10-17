@@ -6,11 +6,10 @@
   "module": "dist/react-stay-scrolled.esm.js",
   "scripts": {
     "lint": "eslint 'src/*.js' 'test/*.js?(x)'",
-    "pretest": "npm run lint",
-    "test": "NODE_ENV=test karma start --single-run --no-auto-watch",
-    "tdd": "NODE_ENV=test karma start",
+    "test": "karma start --single-run --no-auto-watch",
+    "tdd": "karma start",
     "build": "rollup -c",
-    "prepare": "npm test && npm run build"
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",

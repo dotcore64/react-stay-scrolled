@@ -3,8 +3,7 @@
 // Karma configuration
 // Generated on Wed May 11 2016 23:26:57 GMT+0900 (JST)
 
-const env = 'test';
-if (!process.env.NODE_ENV) process.env.NODE_ENV = env;
+process.env.NODE_ENV = "test";
 if (!process.env.CHROME_BIN) process.env.CHROME_BIN = require('puppeteer').executablePath();
 
 module.exports = (config) => {
@@ -70,7 +69,7 @@ module.exports = (config) => {
 
     rollupPreprocessor: {
       plugins: [
-        require('@rollup/plugin-replace')({ 'process.env.NODE_ENV': JSON.stringify(env) }), // this is for react
+        require('@rollup/plugin-replace')({ 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) }), // this is for react
         require('@rollup/plugin-babel').default({ exclude: 'node_modules/**', babelHelpers: 'bundled' }),
         require('@rollup/plugin-node-resolve').default({
           mainFields: ['module', 'browser', 'main'],
@@ -93,7 +92,7 @@ module.exports = (config) => {
     },
   };
 
-  if (process.env.TRAVIS) {
+  if (process.env.CI) {
     configuration.reporters.push('coveralls');
   }
 
