@@ -1,0 +1,39 @@
+{
+  "extends": ["airbnb", "plugin:react/jsx-runtime"],
+  "env": {
+    "browser": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "rules": {
+    "no-multi-assign": 0,
+    "max-len": ["error", 150],
+    "func-names": 0,
+    "new-cap": [2, {
+      "capIsNewExceptions": ["Velocity"]
+    }],
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": [
+        "karma.conf.js",
+        "rollup.config.js",
+        "examples/rollup.config.js"
+      ]
+    }]
+  },
+  "overrides": [
+    {
+      "files": ["test/{,**}/*.js?(x)"],
+      "extends": ["plugin:mocha/recommended"],
+      "plugins": ["mocha"],
+      "env": {
+        "mocha": true,
+        "browser": true
+      },
+      "rules": {
+        "mocha/no-mocha-arrows": 0,
+        "import/no-extraneous-dependencies": [2, { "devDependencies": true }]
+      }
+    }
+  ]
+}
