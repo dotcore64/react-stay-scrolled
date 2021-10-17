@@ -71,7 +71,7 @@ module.exports = (config) => {
     rollupPreprocessor: {
       plugins: [
         require('@rollup/plugin-replace')({ 'process.env.NODE_ENV': JSON.stringify(env) }), // this is for react
-        require('@rollup/plugin-babel').default({ exclude: 'node_modules/**' }),
+        require('@rollup/plugin-babel').default({ exclude: 'node_modules/**', babelHelpers: 'bundled' }),
         require('@rollup/plugin-node-resolve').default({
           mainFields: ['module', 'browser', 'main'],
           extensions: ['.js', '.jsx'],

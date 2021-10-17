@@ -7,7 +7,7 @@ import pkg from './package.json';
 
 const input = 'src/index.js';
 const plugins = [
-  babel({ exclude: '**/node_modules/**' }),
+  babel({ exclude: '**/node_modules/**', babelHelpers: 'bundled' }),
 ];
 
 const name = 'ReactStayScrolled';

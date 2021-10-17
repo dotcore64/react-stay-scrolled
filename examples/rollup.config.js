@@ -20,6 +20,7 @@ export default {
         '@babel/env',
         '@babel/react',
       ],
+      babelHelpers: 'bundled',
     }),
     resolve({ extensions: ['.js', '.jsx'] }),
     commonjs({ include: ['node_modules/**', '../node_modules/**'] }),
