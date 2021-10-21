@@ -74,7 +74,7 @@
     "react": ">=16.8.0"
   },
   "dependencies": {
-    "memoize-one": "^5.2.1",
+    "memoize-one": "^6.0.0",
     "tiny-invariant": "^1.1.0"
   }
 }
