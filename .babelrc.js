@@ -7,10 +7,9 @@ module.exports = api => ({
         }
       } : {}),
     }],
-    ['@babel/react', { runtime: "automatic" }],
-  ],
+    api("test") && ['@babel/react', { runtime: "automatic" }],
+  ].filter(Boolean),
   plugins: [
-    'dev-expression',
-    api.env('test') && ['istanbul', { exclude: ['test/*.jsx'] }],
+    api.env('test') && ['istanbul', { exclude: ['test/**'] }],
   ].filter(Boolean),
 });

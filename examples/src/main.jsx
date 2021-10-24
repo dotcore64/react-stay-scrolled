@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
 import { render } from 'react-dom';
 import useInterval from 'use-interval';
 import useStayScrolled from 'react-stay-scrolled';

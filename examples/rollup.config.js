@@ -18,7 +18,7 @@ export default {
       babelrc: false,
       presets: [
         '@babel/env',
-        '@babel/react',
+        ['@babel/react', { runtime: 'automatic' }],
       ],
       babelHelpers: 'bundled',
     }),
