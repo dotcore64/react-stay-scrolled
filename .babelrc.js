@@ -7,7 +7,7 @@ module.exports = api => ({
         }
       } : {}),
     }],
-    api("test") && ['@babel/react', { runtime: "automatic" }],
+    api.env("test") && ['@babel/react', { runtime: "automatic" }],
   ].filter(Boolean),
   plugins: [
     api.env('test') && ['istanbul', { exclude: ['test/**'] }],
