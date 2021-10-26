@@ -39,7 +39,7 @@
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.0.6",
     "@rollup/plugin-replace": "^3.0.0",
-    "babel-plugin-dev-expression": "^0.2.2",
+    "babel-plugin-dev-expression": "^0.2.3",
     "babel-plugin-istanbul": "^6.1.1",
     "chai": "^4.3.4",
     "dynamics.js": "^1.1.5",
