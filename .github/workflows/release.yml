@@ -20,7 +20,12 @@ jobs:
         registry-url: 'https://registry.npmjs.org'
 
     - name: Install dependencies
-      run: npm ci && npm ci --prefix examples examples
+      run: npm ci
+
+    # help the linter
+    - name: Install example dependencies
+      working-directory: ./examples
+      run: npm ci
 
     - name: Lint
       run: npm run lint

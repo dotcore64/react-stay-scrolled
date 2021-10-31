@@ -30,7 +30,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: npm ci && npm ci --prefix examples examples
+        run: npm ci
+
+      # help the linter
+      - name: Install example dependencies
+        working-directory: ./examples
+        run: npm ci
 
       - name: Install react
         run: npm install --no-save react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }}
