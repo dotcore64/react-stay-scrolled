@@ -12,7 +12,7 @@ const plugins = [
 
 const name = 'ReactStayScrolled';
 const globals = { react: 'React' };
-const external = id => !id.startsWith('.') && !id.startsWith('/');
+const external = (id) => !id.startsWith('.') && !id.startsWith('/');
 
 export default [{
   external,
@@ -26,7 +26,11 @@ export default [{
   external: Object.keys(globals),
   input,
   output: {
-    file: `dist/${pkg.name}.umd.js`, format: 'umd', globals, name, exports: 'named',
+    file: `dist/${pkg.name}.umd.js`,
+    format: 'umd',
+    globals,
+    name,
+    exports: 'named',
     plugins: [terser()],
   },
   plugins: [

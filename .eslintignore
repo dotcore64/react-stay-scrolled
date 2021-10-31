@@ -1,1 +1,4 @@
 dist/*.js
+node_modules/
+coverage/
+examples/public/client.js

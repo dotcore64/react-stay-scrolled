@@ -3,3 +3,4 @@ dist
 coverage
 examples/public/*
 !examples/public/index.html
+.eslintcache

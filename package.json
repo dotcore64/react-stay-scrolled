@@ -5,7 +5,7 @@
   "main": "dist/react-stay-scrolled.cjs.js",
   "module": "dist/react-stay-scrolled.esm.js",
   "scripts": {
-    "lint": "eslint 'src/*.js' 'test/*.js?(x)'",
+    "lint": "eslint --cache .",
     "test": "karma start --single-run --no-auto-watch",
     "tdd": "karma start",
     "build": "rollup -c",
