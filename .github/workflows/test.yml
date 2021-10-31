@@ -32,6 +32,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # examples dir ci will fail on npm@6
       - name: Install npm@8
         run: npm install -g npm@8
 
