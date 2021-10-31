@@ -23,15 +23,16 @@ $ npm install --save react-stay-scrolled
 Run examples:
 
 ```bash
+$ npm ci
 $ cd examples
-$ npm install
+$ npm ci
 $ npm start
 ```
 
 ## Usage
 
 ```javascript
-import React, { useRef, useLayoutEffect } from 'react';
+import { useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import useStayScrolled from 'react-stay-scrolled';
 
@@ -61,7 +62,7 @@ Another use case is notifying users when there is a new message down the window 
 
 ```javascript
 // messages.jsx
-import React, { useState, useRef, useCallback, useLayoutEffect } from 'react';
+import { useState, useRef, useCallback, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import useStayScrolled from 'react-stay-scrolled';
 import Message from './message.jsx';
@@ -94,7 +95,7 @@ const Messages = ({ messages }) => {
 You can use [react-spring](https://www.react-spring.io/) to animate the scroll:
 
 ```javascript
-import React, { useRef, useCallback, useLayoutEffect } from 'react';
+import { useRef, useCallback, useLayoutEffect } from 'react';
 import useStayScrolled from 'react-stay-scrolled';
 import { useSpring, animated } from '@react-spring/web';
 
