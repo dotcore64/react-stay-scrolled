@@ -2,12 +2,22 @@
   "name": "react-stay-scrolled",
   "version": "7.3.1",
   "description": "React component to keep content always scrolled down",
-  "main": "dist/react-stay-scrolled.cjs.js",
-  "module": "dist/react-stay-scrolled.esm.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=12.2"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
   "scripts": {
     "lint": "eslint --cache .",
-    "test": "karma start --single-run --no-auto-watch",
-    "tdd": "karma start",
+    "test": "karma start karma.conf.cjs --single-run --no-auto-watch",
+    "tdd": "karma start karma.conf.cjs",
     "build": "rollup -c",
     "prepare": "npm run build"
   },
