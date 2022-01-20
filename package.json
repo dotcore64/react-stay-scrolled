@@ -42,7 +42,7 @@
   },
   "homepage": "https://github.com/dotcore64/react-stay-scrolled#readme",
   "devDependencies": {
-    "@babel/core": "^7.16.5",
+    "@babel/core": "^7.16.10",
     "@babel/preset-env": "^7.16.5",
     "@babel/preset-react": "^7.16.5",
     "@react-spring/web": "^9.3.2",
