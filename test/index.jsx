@@ -2,7 +2,7 @@ import {
   StrictMode, useState, useRef, useEffect, useLayoutEffect, useMemo,
 } from 'react';
 import { render as reactDomRender, unmountComponentAtNode } from 'react-dom';
-import { createRoot } from 'react-dom/client';
+import { createRoot } from 'react-dom/client'; // eslint-disable-line import/no-unresolved
 import { act } from 'react-dom/test-utils';
 
 import PropTypes from 'prop-types';
@@ -68,7 +68,10 @@ describe('react-stay-scrolled', () => {
     return node.scrollTop === maxScrollTop(node);
   }
 
-  function render(element, container) {
+  let container;
+  let root;
+
+  function render(element) {
     if (createRoot) {
       root = root || createRoot(container);
       act(() => {
@@ -100,9 +103,6 @@ describe('react-stay-scrolled', () => {
     }
   }
 
-  let container;
-  let root;
-
   beforeEach(() => {
     container = document.createElement('div');
     document.body.appendChild(container);
@@ -115,20 +115,20 @@ describe('react-stay-scrolled', () => {
 
   describe('general', () => {
     it('should render single div', () => {
-      render(<TestComponent />, container);
+      render(<TestComponent />);
       expect(container.childNodes.length).to.equal(1);
       expect(container.firstChild.tagName).to.equal('DIV');
     });
 
     it('should start with scrolled element', () => {
-      render(<TestComponent initialScroll={Infinity} />, container);
+      render(<TestComponent initialScroll={Infinity} />);
 
       expect(container.firstChild.scrollHeight).to.equal(testScrollHeight);
       expect(isDomScrolled(container.firstChild)).to.equal(true);
     });
 
     it('should not start with scrolled element', () => {
-      render(<TestComponent />, container);
+      render(<TestComponent />);
 
       expect(container.firstChild.scrollTop).to.equal(0);
       expect(isDomScrolled(container.firstChild)).to.equal(false);
@@ -138,7 +138,7 @@ describe('react-stay-scrolled', () => {
       let scrollBottom;
       const storeController = (controllers) => { ({ scrollBottom } = controllers); };
 
-      render(<TestComponent provideControllers={storeController} />, container);
+      render(<TestComponent provideControllers={storeController} />);
 
       expect(isDomScrolled(container.firstChild)).to.equal(false);
       scrollBottom();
@@ -160,7 +160,6 @@ describe('react-stay-scrolled', () => {
             }}
             provideControllers={storeController}
           />,
-          container,
         );
 
         expect(stayScrolled()).to.equal(true);
@@ -174,7 +173,7 @@ describe('react-stay-scrolled', () => {
       let isScrolled;
       const storeController = (controllers) => { ({ stayScrolled, isScrolled } = controllers); };
 
-      render(<TestComponent provideControllers={storeController} />, container);
+      render(<TestComponent provideControllers={storeController} />);
 
       expect(stayScrolled()).to.equal(false);
       expect(isScrolled()).to.equal(false);
@@ -200,9 +199,9 @@ describe('react-stay-scrolled', () => {
         prop: PropTypes.string.isRequired,
       };
 
-      render(<MemoizeTestComponent prop="foo" />, container);
+      render(<MemoizeTestComponent prop="foo" />);
       // trigger rerender, stayScrolled should be unchanged
-      render(<MemoizeTestComponent prop="bar" />, container);
+      render(<MemoizeTestComponent prop="bar" />);
 
       expect(cb.callCount).to.equal(1);
     });
@@ -245,7 +244,7 @@ describe('react-stay-scrolled', () => {
         );
       };
 
-      render(<Messages />, container);
+      render(<Messages />);
     });
   });
 
@@ -282,7 +281,7 @@ describe('react-stay-scrolled', () => {
           inaccuracy={inaccuracy}
           onScroll={onScroll}
           provideControllers={storeController}
-        />, container);
+        />);
       };
 
       recursion(1);
@@ -311,7 +310,7 @@ describe('react-stay-scrolled', () => {
         );
       };
 
-      render(<Parent />, container);
+      render(<Parent />);
     });
   });
 
@@ -330,7 +329,6 @@ describe('react-stay-scrolled', () => {
           provideControllers={storeController}
           getRunScroll={runScroll}
         />,
-        container,
       );
 
       expect(isDomScrolled(container.firstChild)).to.equal(false);
@@ -357,7 +355,6 @@ describe('react-stay-scrolled', () => {
           provideControllers={storeController}
           getRunScroll={runScroll}
         />,
-        container,
       );
 
       expect(isScrolled()).to.equal(false);

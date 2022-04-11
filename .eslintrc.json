@@ -4,7 +4,10 @@
     "browser": true
   },
   "parserOptions": {
-    "ecmaVersion": 2020
+    "ecmaVersion": 2022
+  },
+  "globals": {
+    "globalThis": false
   },
   "rules": {
     "no-multi-assign": 0,
