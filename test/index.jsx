@@ -1,7 +1,8 @@
 import {
   StrictMode, useState, useRef, useEffect, useLayoutEffect, useMemo,
 } from 'react';
-import ReactDOM from 'react-dom';
+import { render as reactDomRender, unmountComponentAtNode } from 'react-dom';
+import { createRoot } from 'react-dom/client'; // eslint-disable-line import/no-unresolved
 import { act } from 'react-dom/test-utils';
 
 import PropTypes from 'prop-types';
@@ -25,7 +26,7 @@ import {
   testScrollHeight,
 } from './constants';
 
-const noop = () => {};
+globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 
 const TestComponent = ({
   provideControllers = () => {},
@@ -67,20 +68,40 @@ describe('react-stay-scrolled', () => {
     return node.scrollTop === maxScrollTop(node);
   }
 
-  function render(element, container, cb = noop) {
-    act(() => {
-      ReactDOM.render(
-        (
-          <StrictMode>
-            {element}
-          </StrictMode>
-        ), container,
-        cb,
-      );
-    });
+  let container;
+  let root;
+
+  function render(element) {
+    if (createRoot) {
+      root = root || createRoot(container);
+      act(() => {
+        root.render(element);
+      });
+    } else {
+      act(() => {
+        reactDomRender(
+          (
+            <StrictMode>
+              {element}
+            </StrictMode>
+          ), container,
+        );
+      });
+    }
   }
 
-  let container;
+  function unmount() {
+    if (createRoot) {
+      if (root) {
+        act(() => {
+          root.unmount();
+        });
+        root = undefined;
+      }
+    } else {
+      unmountComponentAtNode(container);
+    }
+  }
 
   beforeEach(() => {
     container = document.createElement('div');
@@ -88,25 +109,26 @@ describe('react-stay-scrolled', () => {
   });
 
   afterEach(() => {
+    unmount();
     document.body.removeChild(container);
   });
 
   describe('general', () => {
     it('should render single div', () => {
-      render(<TestComponent />, container);
+      render(<TestComponent />);
       expect(container.childNodes.length).to.equal(1);
       expect(container.firstChild.tagName).to.equal('DIV');
     });
 
     it('should start with scrolled element', () => {
-      render(<TestComponent initialScroll={Infinity} />, container);
+      render(<TestComponent initialScroll={Infinity} />);
 
       expect(container.firstChild.scrollHeight).to.equal(testScrollHeight);
       expect(isDomScrolled(container.firstChild)).to.equal(true);
     });
 
     it('should not start with scrolled element', () => {
-      render(<TestComponent />, container);
+      render(<TestComponent />);
 
       expect(container.firstChild.scrollTop).to.equal(0);
       expect(isDomScrolled(container.firstChild)).to.equal(false);
@@ -116,7 +138,7 @@ describe('react-stay-scrolled', () => {
       let scrollBottom;
       const storeController = (controllers) => { ({ scrollBottom } = controllers); };
 
-      render(<TestComponent provideControllers={storeController} />, container);
+      render(<TestComponent provideControllers={storeController} />);
 
       expect(isDomScrolled(container.firstChild)).to.equal(false);
       scrollBottom();
@@ -138,7 +160,6 @@ describe('react-stay-scrolled', () => {
             }}
             provideControllers={storeController}
           />,
-          container,
         );
 
         expect(stayScrolled()).to.equal(true);
@@ -152,7 +173,7 @@ describe('react-stay-scrolled', () => {
       let isScrolled;
       const storeController = (controllers) => { ({ stayScrolled, isScrolled } = controllers); };
 
-      render(<TestComponent provideControllers={storeController} />, container);
+      render(<TestComponent provideControllers={storeController} />);
 
       expect(stayScrolled()).to.equal(false);
       expect(isScrolled()).to.equal(false);
@@ -178,9 +199,9 @@ describe('react-stay-scrolled', () => {
         prop: PropTypes.string.isRequired,
       };
 
-      render(<MemoizeTestComponent prop="foo" />, container);
+      render(<MemoizeTestComponent prop="foo" />);
       // trigger rerender, stayScrolled should be unchanged
-      render(<MemoizeTestComponent prop="bar" />, container);
+      render(<MemoizeTestComponent prop="bar" />);
 
       expect(cb.callCount).to.equal(1);
     });
@@ -223,7 +244,7 @@ describe('react-stay-scrolled', () => {
         );
       };
 
-      render(<Messages />, container);
+      render(<Messages />);
     });
   });
 
@@ -245,7 +266,7 @@ describe('react-stay-scrolled', () => {
           expect(isDomScrolled(dom)).to.equal(expectedResult);
 
           act(() => {
-            ReactDOM.unmountComponentAtNode(container);
+            unmount();
           });
 
           if (i < domMaxScrollTop) {
@@ -260,7 +281,7 @@ describe('react-stay-scrolled', () => {
           inaccuracy={inaccuracy}
           onScroll={onScroll}
           provideControllers={storeController}
-        />, container);
+        />);
       };
 
       recursion(1);
@@ -289,7 +310,7 @@ describe('react-stay-scrolled', () => {
         );
       };
 
-      render(<Parent />, container);
+      render(<Parent />);
     });
   });
 
@@ -308,7 +329,6 @@ describe('react-stay-scrolled', () => {
           provideControllers={storeController}
           getRunScroll={runScroll}
         />,
-        container,
       );
 
       expect(isDomScrolled(container.firstChild)).to.equal(false);
@@ -335,7 +355,6 @@ describe('react-stay-scrolled', () => {
           provideControllers={storeController}
           getRunScroll={runScroll}
         />,
-        container,
       );
 
       expect(isScrolled()).to.equal(false);
