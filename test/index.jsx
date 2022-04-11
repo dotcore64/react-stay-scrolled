@@ -1,7 +1,8 @@
 import {
   StrictMode, useState, useRef, useEffect, useLayoutEffect, useMemo,
 } from 'react';
-import ReactDOM from 'react-dom';
+import { render as reactDomRender, unmountComponentAtNode } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { act } from 'react-dom/test-utils';
 
 import PropTypes from 'prop-types';
@@ -25,7 +26,7 @@ import {
   testScrollHeight,
 } from './constants';
 
-const noop = () => {};
+globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 
 const TestComponent = ({
   provideControllers = () => {},
@@ -67,20 +68,40 @@ describe('react-stay-scrolled', () => {
     return node.scrollTop === maxScrollTop(node);
   }
 
-  function render(element, container, cb = noop) {
-    act(() => {
-      ReactDOM.render(
-        (
-          <StrictMode>
-            {element}
-          </StrictMode>
-        ), container,
-        cb,
-      );
-    });
+  function render(element, container) {
+    if (createRoot) {
+      root = root || createRoot(container);
+      act(() => {
+        root.render(element);
+      });
+    } else {
+      act(() => {
+        reactDomRender(
+          (
+            <StrictMode>
+              {element}
+            </StrictMode>
+          ), container,
+        );
+      });
+    }
+  }
+
+  function unmount() {
+    if (createRoot) {
+      if (root) {
+        act(() => {
+          root.unmount();
+        });
+        root = undefined;
+      }
+    } else {
+      unmountComponentAtNode(container);
+    }
   }
 
   let container;
+  let root;
 
   beforeEach(() => {
     container = document.createElement('div');
@@ -88,6 +109,7 @@ describe('react-stay-scrolled', () => {
   });
 
   afterEach(() => {
+    unmount();
     document.body.removeChild(container);
   });
 
@@ -245,7 +267,7 @@ describe('react-stay-scrolled', () => {
           expect(isDomScrolled(dom)).to.equal(expectedResult);
 
           act(() => {
-            ReactDOM.unmountComponentAtNode(container);
+            unmount();
           });
 
           if (i < domMaxScrollTop) {
