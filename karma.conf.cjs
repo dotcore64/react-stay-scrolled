@@ -60,7 +60,6 @@ module.exports = (config) => {
 
     rollupPreprocessor: {
       plugins: [
-        require('rollup-plugin-istanbul')({ exclude: ['**/test/**', 'node_modules/**'] }),
         require('@rollup/plugin-replace')({ 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) }), // this is for react
         require('@rollup/plugin-babel').default({ exclude: 'node_modules/**', babelHelpers: 'bundled' }),
         !IS_REACT_18 && require('@rollup/plugin-alias')({ entries: { 'react-dom/client': 'test/react-dom-client-polyfill.js' } }),
