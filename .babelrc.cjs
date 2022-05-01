@@ -9,7 +9,4 @@ module.exports = api => ({
     }],
     api.env("test") && ['@babel/react', { runtime: "automatic" }],
   ].filter(Boolean),
-  plugins: [
-    api.env('test') && ['istanbul', { exclude: ['test/**'] }],
-  ].filter(Boolean),
 });

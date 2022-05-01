@@ -52,10 +52,11 @@ jobs:
         uses: nick-invision/retry@v1 # tests are somewhat flakey
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_SERVICE_NAME: "github"
+          COVERALLS_SERVICE_NAME: github
           COVERALLS_GIT_COMMIT: ${{ github.sha }}
           COVERALLS_GIT_BRANCH: ${{ github.ref }}
           COVERALLS_SERVICE_JOB_ID: ${{ github.run_id }}
+          CI_PULL_REQUEST: ${{ github.event.number }}
         with:
           timeout_minutes: 1 # Tests run for about 45s
           max_attempts: 3
