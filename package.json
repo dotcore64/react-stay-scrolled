@@ -6,7 +6,7 @@
   "module": "dist/index.js",
   "type": "module",
   "engines": {
-    "node": ">=12.2"
+    "node": ">=14.0.0"
   },
   "exports": {
     ".": {
