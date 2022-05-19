@@ -302,6 +302,10 @@ describe('react-stay-scrolled', () => {
         return null;
       };
 
+      Child.propTypes = {
+        scrollBottom: PropTypes.func.isRequired,
+      };
+
       const Parent = () => {
         const ref = useRef(null);
         const { scrollBottom } = useStayScrolled(ref);
