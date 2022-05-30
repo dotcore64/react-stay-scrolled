@@ -12,9 +12,9 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 12.x
           - 14.x
           - 16.x
+          - 18.x
         react-version:
           - ^16.8.0
           - ^17.0.0
@@ -35,6 +35,7 @@ jobs:
 
       # examples dir ci will fail on npm@6
       - name: Install npm@8
+        if: ${{ matrix.node-version == '14.x' }}
         run: npm install -g npm@8
 
       # help the linter
