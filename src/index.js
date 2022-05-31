@@ -3,7 +3,8 @@ import {
 } from 'react';
 import invariant from 'tiny-invariant';
 import memoize from 'memoize-one';
-import { maxScrollTop } from './util';
+
+import { maxScrollTop } from './util.js'; // eslint-disable-line import/extensions
 
 // eslint-disable-next-line no-param-reassign
 const defaultRunScroll = memoize((domRef) => (offset) => { domRef.current.scrollTop = offset; });

@@ -2,16 +2,16 @@
   "name": "react-stay-scrolled",
   "version": "7.4.0",
   "description": "React component to keep content always scrolled down",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
   "type": "module",
   "engines": {
     "node": ">=14.0.0"
   },
+  "main": "./dist/index.js",
+  "types": "./types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "types": "./types/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./package.json": "./package.json"
   },
@@ -19,7 +19,7 @@
     "lint": "eslint --cache .",
     "test": "karma start karma.conf.cjs --single-run --no-auto-watch",
     "tdd": "karma start karma.conf.cjs",
-    "build": "rollup -c",
+    "build": "babel src -s -d dist",
     "prepare": "npm run build"
   },
   "repository": {
@@ -30,7 +30,6 @@
     "dist",
     "types"
   ],
-  "types": "types/index.d.ts",
   "keywords": [
     "react-hooks",
     "scroll"
@@ -42,8 +41,8 @@
   },
   "homepage": "https://github.com/dotcore64/react-stay-scrolled#readme",
   "devDependencies": {
+    "@babel/cli": "^7.17.10",
     "@babel/core": "^7.18.2",
-    "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
     "@react-spring/web": "^9.4.5",
     "@rollup/plugin-alias": "^3.1.9",

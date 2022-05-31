@@ -13,7 +13,7 @@ import { spy } from 'sinon';
 // eslint-disable-next-line import/no-unresolved
 import useStayScrolled from 'react-stay-scrolled';
 
-import { maxScrollTop } from '../src/util';
+import { maxScrollTop } from '../src/util.js'; // eslint-disable-line import/extensions
 
 import {
   jqueryRunScroll,
@@ -21,13 +21,13 @@ import {
   velocityRunScroll,
   springRunScroll,
   SpringTestComponent,
-} from './animation';
+} from './animation.jsx'; // eslint-disable-line import/extensions
 
 import {
   duration,
   testHeight,
   testScrollHeight,
-} from './constants';
+} from './constants.js'; // eslint-disable-line import/extensions
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 

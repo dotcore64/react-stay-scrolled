@@ -6,14 +6,15 @@ import Velocity from 'velocity-animate';
 import jQuery from 'jquery';
 import dynamics from 'dynamics.js';
 
-import useStayScrolled from '../src';
+// eslint-disable-next-line import/no-unresolved
+import useStayScrolled from 'react-stay-scrolled';
 
 import {
   easing,
   duration,
   testHeight,
   testScrollHeight,
-} from './constants';
+} from './constants.js'; // eslint-disable-line import/extensions
 
 export const dynamicsRunScroll = (dom) => (offset) => {
   dynamics.animate(dom.current, {
