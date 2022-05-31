@@ -31,7 +31,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: npm ci
+        uses: bahmutov/npm-install@v1
 
       # examples dir ci will fail on npm@6
       - name: Install npm@8
