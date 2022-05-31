@@ -39,7 +39,7 @@ export default (domRef, {
   }, [runScroll]);
 
   const scrollBottom = useCallback(() => {
-    scroll(Infinity);
+    scroll(Number.POSITIVE_INFINITY);
   }, [scroll]);
 
   const stayScrolled = useCallback(() => {

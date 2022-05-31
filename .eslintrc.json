@@ -1,29 +1,27 @@
 {
-  "extends": ["airbnb", "plugin:react/jsx-runtime"],
+  "extends": ["airbnb", "plugin:react/jsx-runtime", "plugin:unicorn/recommended"],
+  "plugins": ["unicorn"],
   "env": {
     "browser": true
   },
   "parserOptions": {
-    "ecmaVersion": 2022
-  },
-  "globals": {
-    "globalThis": false
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
   "rules": {
     "no-multi-assign": 0,
     "max-len": ["error", 150],
     "func-names": 0,
-    "new-cap": [2, {
-      "capIsNewExceptions": ["Velocity"]
-    }],
+    "new-cap": [2, { "capIsNewExceptions": ["Velocity"] }],
     "react/function-component-definition": [2, {"namedComponents":"arrow-function"}],
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": [
         "karma.conf.cjs",
-        "rollup.config.js",
         "examples/rollup.config.js"
       ]
-    }]
+    }],
+    "unicorn/prevent-abbreviations": 0,
+    "unicorn/no-null": 0
   },
   "overrides": [
     {
@@ -31,8 +29,7 @@
       "extends": ["plugin:mocha/recommended"],
       "plugins": ["mocha"],
       "env": {
-        "mocha": true,
-        "browser": true
+        "mocha": true
       },
       "rules": {
         "mocha/no-mocha-arrows": 0,

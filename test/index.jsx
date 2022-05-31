@@ -66,11 +66,9 @@ TestComponent.defaultProps = {
   getRunScroll: undefined,
 };
 
-describe('react-stay-scrolled', () => {
-  function isDomScrolled(node) {
-    return node.scrollTop === maxScrollTop(node);
-  }
+const isDomScrolled = (node) => node.scrollTop === maxScrollTop(node);
 
+describe('react-stay-scrolled', () => {
   let container;
   let root;
 
@@ -108,12 +106,12 @@ describe('react-stay-scrolled', () => {
 
   beforeEach(() => {
     container = document.createElement('div');
-    document.body.appendChild(container);
+    document.body.append(container);
   });
 
   afterEach(() => {
     unmount();
-    document.body.removeChild(container);
+    container.remove();
   });
 
   describe('general', () => {
@@ -124,7 +122,7 @@ describe('react-stay-scrolled', () => {
     });
 
     it('should start with scrolled element', () => {
-      render(<TestComponent initialScroll={Infinity} />);
+      render(<TestComponent initialScroll={Number.POSITIVE_INFINITY} />);
 
       expect(container.firstChild.scrollHeight).to.equal(testScrollHeight);
       expect(isDomScrolled(container.firstChild)).to.equal(true);
@@ -156,7 +154,7 @@ describe('react-stay-scrolled', () => {
       await new Promise((resolve) => {
         render(
           <TestComponent
-            initialScroll={Infinity}
+            initialScroll={Number.POSITIVE_INFINITY}
             onScroll={() => {
               expect(isScrolled()).to.equal(true);
               resolve();
@@ -215,7 +213,7 @@ describe('react-stay-scrolled', () => {
         const ref = useRef(null);
 
         const addMessage = () => {
-          setMessages((prevMessages) => prevMessages.concat(['foo']));
+          setMessages((prevMessages) => [...prevMessages, 'foo']);
         };
 
         const { stayScrolled } = useStayScrolled(ref);

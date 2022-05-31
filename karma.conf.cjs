@@ -4,7 +4,7 @@
 // Generated on Wed May 11 2016 23:26:57 GMT+0900 (JST)
 
 if (!process.env.CHROME_BIN) process.env.CHROME_BIN = require('puppeteer').executablePath();
-const IS_REACT_18 = parseInt(require('react').version.split('.')[0], 10) >= 18;
+const IS_REACT_18 = Number.parseInt(require('react').version.split('.')[0], 10) >= 18;
 
 module.exports = (config) => {
   config.set({
@@ -30,7 +30,7 @@ module.exports = (config) => {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['spec', 'coverage'].concat(process.env.CI ? ['coveralls'] : []),
+    reporters: ['spec', 'coverage', ...(process.env.CI ? ['coveralls'] : [])],
 
     // web server port
     port: 9876,
@@ -55,7 +55,7 @@ module.exports = (config) => {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity,
+    concurrency: Number.POSITIVE_INFINITY,
 
     rollupPreprocessor: {
       plugins: [
