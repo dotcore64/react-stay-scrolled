@@ -4,7 +4,7 @@ updates:
       directory: /
       versioning-strategy: increase
       schedule:
-          interval: weekly
+          interval: monthly
       reviewers:
           - perrin4869
       assignees:
