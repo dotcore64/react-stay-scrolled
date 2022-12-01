@@ -8,7 +8,7 @@ import { maxScrollTop } from './util.js'; // eslint-disable-line import/extensio
 
 // eslint-disable-next-line no-param-reassign
 const defaultRunScroll = memoize((domRef) => (offset) => { domRef.current.scrollTop = offset; });
-const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
 export default (domRef, {
   initialScroll = null,
