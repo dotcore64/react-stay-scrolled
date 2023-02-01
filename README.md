@@ -224,7 +224,7 @@ Returns true if the dom element is scrolled all the way down (within the inaccur
 
 See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
 
-[build-badge]: https://img.shields.io/github/workflow/status/dotcore64/react-stay-scrolled/test/master?style=flat-square
+[build-badge]: https://img.shields.io/github/actions/workflow/status/dotcore64/react-stay-scrolled/test.yml?event=push&style=flat-square
 [build]: https://github.com/dotcore64/react-stay-scrolled/actions
 
 [npm-badge]: https://img.shields.io/npm/v/react-stay-scrolled.svg?style=flat-square
