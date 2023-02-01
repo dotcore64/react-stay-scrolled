@@ -1,6 +1,6 @@
 {
   "name": "react-stay-scrolled",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "React component to keep content always scrolled down",
   "type": "module",
   "engines": {
