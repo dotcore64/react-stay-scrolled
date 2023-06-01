@@ -79,7 +79,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup": "^3.21.2",
-    "sinon": "^15.0.4",
+    "sinon": "^15.1.0",
     "velocity-animate": "^1.5.2"
   },
   "peerDependencies": {
