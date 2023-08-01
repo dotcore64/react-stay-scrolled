@@ -1,7 +1,7 @@
 import {
   StrictMode, useState, useRef, useEffect, useLayoutEffect, useMemo,
 } from 'react';
-import { render as reactDomRender, unmountComponentAtNode } from 'react-dom';
+import { render as reactDomRender, unmountComponentAtNode } from 'react-dom'; // eslint-disable-line react/no-deprecated
 import { createRoot } from 'react-dom/client';
 import { act } from 'react-dom/test-utils';
 
