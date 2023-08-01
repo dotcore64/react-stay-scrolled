@@ -10,6 +10,14 @@ updates:
           - perrin4869
       assignees:
           - perrin4869
+      groups:
+        babel:
+          patterns:
+            - "@babel/*"
+        react:
+          patterns:
+            - "react"
+            - "react-dom"
     - package-ecosystem: github-actions
       directory: /
       schedule:
