@@ -45,7 +45,7 @@
     "@babel/core": "^7.23.0",
     "@babel/preset-react": "^7.22.15",
     "@react-spring/web": "^9.7.3",
-    "@rollup/plugin-alias": "^5.0.0",
+    "@rollup/plugin-alias": "^5.0.1",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^25.0.4",
     "@rollup/plugin-node-resolve": "^15.2.1",
