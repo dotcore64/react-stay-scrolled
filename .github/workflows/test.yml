@@ -45,7 +45,7 @@ jobs:
         run: npm install --no-save react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }}
 
       - name: Test
-        uses: nick-invision/retry@v2 # tests are somewhat flakey
+        uses: nick-invision/retry@v3 # tests are somewhat flakey
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_SERVICE_NAME: github
