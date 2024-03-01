@@ -375,12 +375,19 @@ describe('react-stay-scrolled', () => {
     };
 
     it('should animate scrolling with react-spring', () => testAnimation(springRunScroll, SpringTestComponent));
+
     it('should report isScrolled correctly when using react-spring', () => testAnimationOnScrolled(springRunScroll, SpringTestComponent));
+
     it('should animate scrolling with dynamics.js', () => testAnimation(dynamicsRunScroll));
+
     it('should report isScrolled correctly when using dynamics.js', () => testAnimationOnScrolled(dynamicsRunScroll));
+
     it('should animate scrolling with velocity', () => testAnimation(velocityRunScroll));
+
     it('should report isScrolled correctly when using velocity', () => testAnimationOnScrolled(velocityRunScroll));
+
     it('should animate scrolling with jquery', () => testAnimation(jqueryRunScroll));
+
     it('should report isScrolled correctly when using jquery', () => testAnimationOnScrolled(jqueryRunScroll));
   });
 });
