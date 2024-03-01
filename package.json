@@ -52,7 +52,7 @@
     "@rollup/plugin-replace": "^5.0.5",
     "babel-plugin-dev-expression": "^0.2.3",
     "babel-plugin-istanbul": "^6.1.1",
-    "chai": "^5.0.3",
+    "chai": "^5.1.0",
     "dynamics.js": "^1.1.5",
     "eslint": "^8.56.0",
     "eslint-config-airbnb": "^19.0.4",
