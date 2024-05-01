@@ -4,7 +4,7 @@
   "description": "React component to keep content always scrolled down",
   "type": "module",
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
   },
   "main": "./dist/index.js",
   "types": "./types/index.d.ts",
