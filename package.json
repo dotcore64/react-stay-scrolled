@@ -41,9 +41,9 @@
   },
   "homepage": "https://github.com/dotcore64/react-stay-scrolled#readme",
   "devDependencies": {
-    "@babel/cli": "^7.24.6",
-    "@babel/core": "^7.24.6",
-    "@babel/preset-react": "^7.24.6",
+    "@babel/cli": "^7.24.7",
+    "@babel/core": "^7.24.7",
+    "@babel/preset-react": "^7.24.7",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.3.0",
     "@react-spring/web": "^9.7.3",
     "@rollup/plugin-alias": "^5.1.0",
