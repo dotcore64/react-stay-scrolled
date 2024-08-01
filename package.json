@@ -52,7 +52,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-replace": "^5.0.7",
     "babel-plugin-dev-expression": "^0.2.3",
-    "babel-plugin-istanbul": "^6.1.1",
+    "babel-plugin-istanbul": "^7.0.0",
     "chai": "^5.1.1",
     "dynamics.js": "^1.1.5",
     "eslint": "^8.57.0",
