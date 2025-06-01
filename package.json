@@ -45,7 +45,7 @@
     "@babel/core": "^7.27.4",
     "@babel/preset-react": "^7.27.1",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
-    "@react-spring/web": "^9.7.5",
+    "@react-spring/web": "^10.0.1",
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^28.0.3",
