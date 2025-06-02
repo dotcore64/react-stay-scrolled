@@ -6,10 +6,6 @@ updates:
       schedule:
           interval: monthly
       open-pull-requests-limit: 20
-      reviewers:
-          - perrin4869
-      assignees:
-          - perrin4869
       groups:
         babel:
           patterns:
@@ -23,7 +19,3 @@ updates:
       schedule:
           # Check for updates to GitHub Actions every weekday
           interval: daily
-      reviewers:
-          - perrin4869
-      assignees:
-          - perrin4869
