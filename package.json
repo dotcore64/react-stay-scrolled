@@ -78,7 +78,7 @@
     "puppeteer": "^24.11.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "rollup": "^4.41.1",
+    "rollup": "^4.44.1",
     "sinon": "^21.0.0",
     "velocity-animate": "^1.5.2"
   },
