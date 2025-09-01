@@ -76,8 +76,8 @@
     "mocha": "^11.7.1",
     "prop-types": "^15.8.1",
     "puppeteer": "^24.15.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "rollup": "^4.46.2",
     "sinon": "^21.0.0",
     "velocity-animate": "^1.5.2"
