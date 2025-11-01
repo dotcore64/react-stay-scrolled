@@ -31,6 +31,7 @@
     "unicorn/prevent-abbreviations": 0,
     "unicorn/no-anonymous-default-export": 0,
     "unicorn/no-null": 0,
+    "unicorn/no-await-expression-member": 0,
     "@eslint-community/eslint-comments/no-unused-disable": "error"
   },
   "overrides": [

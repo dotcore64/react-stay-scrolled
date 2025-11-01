@@ -6,7 +6,7 @@
 if (!process.env.CHROME_BIN) process.env.CHROME_BIN = require('puppeteer').executablePath();
 const IS_REACT_18 = Number.parseInt(require('react').version.split('.')[0], 10) >= 18;
 
-module.exports = (config) => {
+module.exports = async (config) => {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -66,7 +66,7 @@ module.exports = (config) => {
           exclude: 'node_modules/**',
           babelHelpers: 'bundled',
         }),
-        !IS_REACT_18 && require('@rollup/plugin-alias')({ entries: { 'react-dom/client': 'test/react-dom-client-polyfill.js' } }),
+        !IS_REACT_18 && (await import('@rollup/plugin-alias')).default({ entries: { 'react-dom/client': 'test/react-dom-client-polyfill.js' } }),
         require('@rollup/plugin-node-resolve').default({
           mainFields: ['module', 'browser', 'main'],
           extensions: ['.js', '.jsx'],
