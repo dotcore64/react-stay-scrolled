@@ -48,7 +48,7 @@
     "@react-spring/web": "^10.0.3",
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-babel": "^6.1.0",
-    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-replace": "^6.0.3",
     "babel-plugin-dev-expression": "^0.2.3",
