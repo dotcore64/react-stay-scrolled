@@ -1,12 +1,13 @@
 // Karma configuration
 // Generated on Wed May 11 2016 23:26:57 GMT+0900 (JST)
 
-if (!process.env.CHROME_BIN)
-  process.env.CHROME_BIN = require("puppeteer").executablePath();
 const IS_REACT_18 =
   Number.parseInt(require("react").version.split(".", 1)[0], 10) >= 18;
 
 module.exports = async (config) => {
+  if (!process.env.CHROME_BIN)
+    process.env.CHROME_BIN = await require("puppeteer").executablePath();
+
   config.set({
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: "",
