@@ -2,6 +2,7 @@
   "name": "react-stay-scrolled-examples",
   "version": "0.0.1",
   "description": "Live examples of react-stay-scrolled in action",
+  "private": true,
   "main": "src/main.jsx",
   "scripts": {
     "start": "rollup -c",

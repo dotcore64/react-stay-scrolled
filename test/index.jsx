@@ -13,7 +13,7 @@ import { spy } from 'sinon';
 // eslint-disable-next-line import/no-unresolved
 import useStayScrolled from 'react-stay-scrolled';
 
-import { maxScrollTop } from '../src/util.js'; // eslint-disable-line import/extensions
+import { maxScrollTop } from '../src/util.js';  
 
 import {
   jqueryRunScroll,
@@ -21,13 +21,13 @@ import {
   velocityRunScroll,
   springRunScroll,
   SpringTestComponent,
-} from './animation.jsx'; // eslint-disable-line import/extensions
+} from './animation.jsx';  
 
 import {
   duration,
   testHeight,
   testScrollHeight,
-} from './constants.js'; // eslint-disable-line import/extensions
+} from './constants.js';  
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -38,6 +38,7 @@ const TestComponent = ({
   ...props
 }) => {
   const ref = useRef(null);
+  // eslint-disable-next-line react-hooks/refs -- ref is only read later, inside the returned scroll callback
   const runScroll = useMemo(() => (getRunScroll ? getRunScroll(ref) : undefined), [getRunScroll, ref]);
   provideControllers(useStayScrolled(ref, { ...props, runScroll }));
 
@@ -218,6 +219,7 @@ describe('react-stay-scrolled', () => {
 
         const { stayScrolled } = useStayScrolled(ref);
 
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- test simulates messages streaming in
         useEffect(() => { addMessage(); }, []);
         useLayoutEffect(() => {
           expect(stayScrolled()).to.equal(true);
@@ -226,9 +228,10 @@ describe('react-stay-scrolled', () => {
           if (messages.length > 4) {
             done(); // After 5 messages stop
           } else {
+            // eslint-disable-next-line react-hooks/set-state-in-effect -- test simulates messages streaming in
             addMessage();
           }
-        }, [messages]);
+        }, [messages, stayScrolled]);
 
         const style = {
           height: testHeight,
@@ -239,7 +242,7 @@ describe('react-stay-scrolled', () => {
         return (
           <div ref={ref} style={style}>
             {messages.map((message, i) => (
-              <div key={i} style={{ height: testScrollHeight, width: 100 }}>{message}</div> // eslint-disable-line react/no-array-index-key
+              <div key={i} style={{ height: testScrollHeight, width: 100 }}>{message}</div>  
             ))}
           </div>
         );
@@ -250,8 +253,7 @@ describe('react-stay-scrolled', () => {
   });
 
   describe('accuracy', () => {
-    it('should stay scrolled only when below inaccuracy', function (done) {
-      this.timeout(5000);
+    it('should stay scrolled only when below inaccuracy', (done) => {
       const inaccuracy = 5;
 
       const recursion = (i) => {
@@ -286,7 +288,7 @@ describe('react-stay-scrolled', () => {
       };
 
       recursion(1);
-    });
+    }).timeout(5000);
   });
 
   describe('invariant', () => {
@@ -295,7 +297,7 @@ describe('react-stay-scrolled', () => {
         useLayoutEffect(() => {
           expect(scrollBottom).to.throw(Error, /hook finished mounting/);
           done();
-        }, []);
+        }, [scrollBottom]);
 
         return null;
       };

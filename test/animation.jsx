@@ -14,7 +14,7 @@ import {
   duration,
   testHeight,
   testScrollHeight,
-} from './constants.js'; // eslint-disable-line import/extensions
+} from './constants.js';  
 
 export const dynamicsRunScroll = (dom) => (offset) => {
   dynamics.animate(dom.current, {
@@ -56,6 +56,7 @@ export const SpringTestComponent = ({
   const ref = useRef(null);
   const [{ scrollTop }, animateScroll] = useSpring(() => ({ scrollTop: 0 }), []);
   const runScroll = useMemo(
+    // eslint-disable-next-line react-hooks/refs -- ref is only read later, inside the returned scroll callback
     () => (getRunScroll ? getRunScroll(animateScroll, ref) : undefined),
     [getRunScroll, animateScroll, ref],
   );

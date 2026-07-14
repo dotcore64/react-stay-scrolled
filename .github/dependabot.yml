@@ -15,6 +15,10 @@ updates:
           patterns:
             - "react"
             - "react-dom"
+        eslint:
+          patterns:
+            - "eslint"
+            - "@eslint/js"
     - package-ecosystem: github-actions
       directory: /
       schedule:
