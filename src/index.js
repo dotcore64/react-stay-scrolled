@@ -4,11 +4,11 @@ import {
 import invariant from 'tiny-invariant';
 import memoize from 'memoize-one';
 
-import { maxScrollTop } from './util.js'; // eslint-disable-line import/extensions
+import { maxScrollTop } from './util.js';  
 
-// eslint-disable-next-line no-param-reassign
+ 
 const defaultRunScroll = memoize((domRef) => (offset) => { domRef.current.scrollTop = offset; });
-const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
+const useIsomorphicLayoutEffect = globalThis.window === undefined ? useEffect : useLayoutEffect;
 
 export default (domRef, {
   initialScroll = null,

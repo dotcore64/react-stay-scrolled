@@ -1,1 +1,1 @@
-export const createRoot = undefined; // eslint-disable-line import/prefer-default-export
+export const createRoot = undefined;  

@@ -1,5 +1,6 @@
 import { useState, useRef, useLayoutEffect } from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
+// eslint-disable-next-line import/no-named-as-default -- default export is the intended hook
 import useInterval from 'use-interval';
 import useStayScrolled from 'react-stay-scrolled';
 
@@ -29,22 +30,19 @@ const App = () => {
   const [messages, setMessages] = useState(initialMessages);
 
   useInterval(() => {
-    setMessages((prevMessages) => prevMessages.concat([message]));
+    setMessages((prevMessages) => [...prevMessages, message]);
   }, 500);
 
   useLayoutEffect(() => {
     stayScrolled();
-  }, [messages]);
+  }, [messages, stayScrolled]);
 
   return (
     <div ref={divRef} style={style}>
-      {/* eslint-disable-next-line react/no-array-index-key */}
+      { }
       {messages.map(({ text }, i) => <div key={i}>{`${text} ${i}`}</div>)}
     </div>
   );
 };
 
-render(
-  <App />,
-  document.getElementById('demo'),
-);
+createRoot(document.querySelector('#demo')).render(<App />);
