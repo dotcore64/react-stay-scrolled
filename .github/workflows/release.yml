@@ -4,38 +4,37 @@ on:
     types: [published]
 
 permissions:
-  id-token: write  # Required for OIDC
+  id-token: write # Required for OIDC
   contents: read
 
 jobs:
   publish:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
 
-    - uses: browser-actions/setup-firefox@latest
+      - uses: browser-actions/setup-firefox@latest
 
-    - name: Use Node.js
-      uses: actions/setup-node@v7
-      with:
-        node-version: '24'
-        registry-url: 'https://registry.npmjs.org'
+      - name: Use Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
 
-    - name: Install dependencies
-      uses: bahmutov/npm-install@v1
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
 
-    # help the linter
-    - name: Install example dependencies
-      working-directory: ./examples
-      run: npm ci
+      # help the linter
+      - name: Install example dependencies
+        working-directory: ./examples
+        run: npm ci
 
-    - name: Lint
-      run: npm run lint
+      - name: Lint
+        run: npm run lint
 
-    - name: Test
-      run: npm test
+      - name: Test
+        run: npm test
 
-    - name: Publish
-      run: npm publish
+      - name: Publish
+        run: npm publish

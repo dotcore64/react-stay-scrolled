@@ -6,6 +6,7 @@ import unicorn from "eslint-plugin-unicorn";
 import react from "eslint-plugin-react";
 import hooks from "eslint-plugin-react-hooks";
 import { configs as typescript } from "typescript-eslint";
+import { configs as yml } from "eslint-plugin-yml";
 import comments from "@eslint-community/eslint-plugin-eslint-comments/configs"; // eslint-disable-line import/default
 import prettier from "eslint-plugin-prettier/recommended";
 import globals from "globals";
@@ -19,6 +20,7 @@ export default [
   unicorn.configs.recommended,
   imprt.flatConfigs.recommended,
   prettier,
+  ...yml.recommended,
   ...typescript.recommended.map((config) => ({
     ...config,
     files: ["**/*.ts"],
@@ -38,6 +40,8 @@ export default [
       "unicorn/no-anonymous-default-export": 0,
       "unicorn/no-await-expression-member": 0,
       "@eslint-community/eslint-comments/no-unused-disable": "error",
+      // GitHub Actions workflows rely on empty mapping values, e.g. `pull_request:`
+      "yml/no-empty-mapping-value": "off",
     },
   },
   {
