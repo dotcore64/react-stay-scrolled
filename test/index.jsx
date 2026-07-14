@@ -5,10 +5,11 @@ import {
   useEffect,
   useLayoutEffect,
   useMemo,
+  act as reactAct,
 } from "react";
 import { render as reactDomRender, unmountComponentAtNode } from "react-dom"; // eslint-disable-line react/no-deprecated
 import { createRoot } from "react-dom/client";
-import { act } from "react-dom/test-utils";
+import { act as testUtilsAct } from "react-dom/test-utils";
 
 import PropTypes from "prop-types";
 import { expect } from "chai";
@@ -29,6 +30,10 @@ import {
 import { duration, testHeight, testScrollHeight } from "./constants.js";
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+
+// react's own act was only added in React 19; react-dom/test-utils's act still
+// works on older versions but is deprecated in favor of the one from react
+const act = reactAct ?? testUtilsAct;
 
 const TestComponent = ({
   provideControllers = () => {},
