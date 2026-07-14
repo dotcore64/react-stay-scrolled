@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { useSpring, animated } from '@react-spring/web';
 
 import Velocity from 'velocity-animate';
+// eslint-disable-next-line import/no-named-as-default -- default export is the intended value
 import jQuery from 'jquery';
 import dynamics from 'dynamics.js';
 
-// eslint-disable-next-line import/no-unresolved
 import useStayScrolled from 'react-stay-scrolled';
 
 import {

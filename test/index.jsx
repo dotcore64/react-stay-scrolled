@@ -9,8 +9,6 @@ import PropTypes from 'prop-types';
 import { expect } from 'chai';
 import { spy } from 'sinon';
 
-// https://github.com/import-js/eslint-plugin-import/issues/1649
-// eslint-disable-next-line import/no-unresolved
 import useStayScrolled from 'react-stay-scrolled';
 
 import { maxScrollTop } from '../src/util.js';  

@@ -5,7 +5,8 @@ import imprt from "eslint-plugin-import";
 import unicorn from "eslint-plugin-unicorn";
 import react from "eslint-plugin-react";
 import hooks from "eslint-plugin-react-hooks";
-import comments from "@eslint-community/eslint-plugin-eslint-comments/configs";
+import { configs as typescript } from "typescript-eslint";
+import comments from "@eslint-community/eslint-plugin-eslint-comments/configs"; // eslint-disable-line import/default
 import globals from "globals";
 
 const testFiles = ["test/{,**/}*.js{,x}"];
@@ -13,9 +14,13 @@ const testFiles = ["test/{,**/}*.js{,x}"];
 export default [
   js.configs.recommended,
   node.configs["flat/recommended-script"],
-  comments.recommended,
+  comments.recommended, // eslint-disable-line import/no-named-as-default-member
   unicorn.configs.recommended,
   imprt.flatConfigs.recommended,
+  ...typescript.recommended.map((config) => ({
+    ...config,
+    files: ["**/*.ts"],
+  })),
   {
     languageOptions: {
       sourceType: "module",
@@ -67,6 +72,14 @@ export default [
     settings: {
       react: {
         version: "detect",
+      },
+      "import/parsers": {
+        "@typescript-eslint/parser": [".ts"],
+      },
+      "import/resolver": {
+        typescript: {
+          alwaysTryTypes: true,
+        },
       },
     },
   },

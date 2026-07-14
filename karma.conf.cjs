@@ -66,7 +66,6 @@ module.exports = async (config) => {
           exclude: 'node_modules/**',
           babelHelpers: 'bundled',
         }),
-        // eslint-disable-next-line import/no-unresolved -- resolver doesn't support this package's exports-only package.json
         !IS_REACT_18 && (await import('@rollup/plugin-alias')).default({ entries: { 'react-dom/client': 'test/react-dom-client-polyfill.js' } }),
         require('@rollup/plugin-node-resolve').default({
           mainFields: ['module', 'browser', 'main'],
