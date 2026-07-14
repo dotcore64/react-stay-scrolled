@@ -7,6 +7,7 @@ import react from "eslint-plugin-react";
 import hooks from "eslint-plugin-react-hooks";
 import { configs as typescript } from "typescript-eslint";
 import comments from "@eslint-community/eslint-plugin-eslint-comments/configs"; // eslint-disable-line import/default
+import prettier from "eslint-plugin-prettier/recommended";
 import globals from "globals";
 
 const testFiles = ["test/{,**/}*.js{,x}"];
@@ -17,6 +18,7 @@ export default [
   comments.recommended, // eslint-disable-line import/no-named-as-default-member
   unicorn.configs.recommended,
   imprt.flatConfigs.recommended,
+  prettier,
   ...typescript.recommended.map((config) => ({
     ...config,
     files: ["**/*.ts"],

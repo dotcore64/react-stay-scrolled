@@ -1,10 +1,10 @@
-import { useState, useRef, useLayoutEffect } from 'react';
-import { createRoot } from 'react-dom/client';
+import { useState, useRef, useLayoutEffect } from "react";
+import { createRoot } from "react-dom/client";
 // eslint-disable-next-line import/no-named-as-default -- default export is the intended hook
-import useInterval from 'use-interval';
-import useStayScrolled from 'react-stay-scrolled';
+import useInterval from "use-interval";
+import useStayScrolled from "react-stay-scrolled";
 
-const message = { text: 'foo' };
+const message = { text: "foo" };
 
 const initialMessages = [
   message,
@@ -17,11 +17,11 @@ const initialMessages = [
 ];
 
 const style = {
-  display: 'inline-block',
-  width: '100px',
-  height: '250px',
-  overflow: 'auto',
-  border: '1px solid #000',
+  display: "inline-block",
+  width: "100px",
+  height: "250px",
+  overflow: "auto",
+  border: "1px solid #000",
 };
 
 const App = () => {
@@ -39,10 +39,12 @@ const App = () => {
 
   return (
     <div ref={divRef} style={style}>
-      { }
-      {messages.map(({ text }, i) => <div key={i}>{`${text} ${i}`}</div>)}
+      {}
+      {messages.map(({ text }, i) => (
+        <div key={i}>{`${text} ${i}`}</div>
+      ))}
     </div>
   );
 };
 
-createRoot(document.querySelector('#demo')).render(<App />);
+createRoot(document.querySelector("#demo")).render(<App />);

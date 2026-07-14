@@ -1,1 +1,1 @@
-export const createRoot = undefined;  
+export const createRoot = undefined;
