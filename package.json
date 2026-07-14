@@ -57,6 +57,7 @@
     "chai": "^6.2.2",
     "dynamics.js": "^1.1.5",
     "eslint": "^9.39.5",
+    "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-mocha": "^11.3.0",
@@ -82,6 +83,8 @@
     "react-dom": "^18.3.1",
     "rollup": "^4.60.3",
     "sinon": "^22.0.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.64.0",
     "velocity-animate": "^1.5.2"
   },
   "peerDependencies": {
