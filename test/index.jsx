@@ -1,17 +1,22 @@
 import {
-  StrictMode, useState, useRef, useEffect, useLayoutEffect, useMemo,
-} from 'react';
-import { render as reactDomRender, unmountComponentAtNode } from 'react-dom'; // eslint-disable-line react/no-deprecated
-import { createRoot } from 'react-dom/client';
-import { act } from 'react-dom/test-utils';
+  StrictMode,
+  useState,
+  useRef,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+} from "react";
+import { render as reactDomRender, unmountComponentAtNode } from "react-dom"; // eslint-disable-line react/no-deprecated
+import { createRoot } from "react-dom/client";
+import { act } from "react-dom/test-utils";
 
-import PropTypes from 'prop-types';
-import { expect } from 'chai';
-import { spy } from 'sinon';
+import PropTypes from "prop-types";
+import { expect } from "chai";
+import { spy } from "sinon";
 
-import useStayScrolled from 'react-stay-scrolled';
+import useStayScrolled from "react-stay-scrolled";
 
-import { maxScrollTop } from '../src/util.js';  
+import { maxScrollTop } from "../src/util.js";
 
 import {
   jqueryRunScroll,
@@ -19,13 +24,9 @@ import {
   velocityRunScroll,
   springRunScroll,
   SpringTestComponent,
-} from './animation.jsx';  
+} from "./animation.jsx";
 
-import {
-  duration,
-  testHeight,
-  testScrollHeight,
-} from './constants.js';  
+import { duration, testHeight, testScrollHeight } from "./constants.js";
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -36,14 +37,18 @@ const TestComponent = ({
   ...props
 }) => {
   const ref = useRef(null);
-  // eslint-disable-next-line react-hooks/refs -- ref is only read later, inside the returned scroll callback
-  const runScroll = useMemo(() => (getRunScroll ? getRunScroll(ref) : undefined), [getRunScroll, ref]);
+
+  const runScroll = useMemo(
+    // eslint-disable-next-line react-hooks/refs -- ref is only read later, inside the returned scroll callback
+    () => (getRunScroll ? getRunScroll(ref) : undefined),
+    [getRunScroll, ref],
+  );
   provideControllers(useStayScrolled(ref, { ...props, runScroll }));
 
   const style = {
     height: testHeight,
     width: 100,
-    overflow: 'auto',
+    overflow: "auto",
   };
 
   return (
@@ -67,7 +72,7 @@ TestComponent.defaultProps = {
 
 const isDomScrolled = (node) => node.scrollTop === maxScrollTop(node);
 
-describe('react-stay-scrolled', () => {
+describe("react-stay-scrolled", () => {
   let container;
   let root;
 
@@ -79,13 +84,7 @@ describe('react-stay-scrolled', () => {
       });
     } else {
       act(() => {
-        reactDomRender(
-          (
-            <StrictMode>
-              {element}
-            </StrictMode>
-          ), container,
-        );
+        reactDomRender(<StrictMode>{element}</StrictMode>, container);
       });
     }
   }
@@ -104,7 +103,7 @@ describe('react-stay-scrolled', () => {
   }
 
   beforeEach(() => {
-    container = document.createElement('div');
+    container = document.createElement("div");
     document.body.append(container);
   });
 
@@ -113,30 +112,32 @@ describe('react-stay-scrolled', () => {
     container.remove();
   });
 
-  describe('general', () => {
-    it('should render single div', () => {
+  describe("general", () => {
+    it("should render single div", () => {
       render(<TestComponent />);
       expect(container.childNodes.length).to.equal(1);
-      expect(container.firstChild.tagName).to.equal('DIV');
+      expect(container.firstChild.tagName).to.equal("DIV");
     });
 
-    it('should start with scrolled element', () => {
+    it("should start with scrolled element", () => {
       render(<TestComponent initialScroll={Number.POSITIVE_INFINITY} />);
 
       expect(container.firstChild.scrollHeight).to.equal(testScrollHeight);
       expect(isDomScrolled(container.firstChild)).to.equal(true);
     });
 
-    it('should not start with scrolled element', () => {
+    it("should not start with scrolled element", () => {
       render(<TestComponent />);
 
       expect(container.firstChild.scrollTop).to.equal(0);
       expect(isDomScrolled(container.firstChild)).to.equal(false);
     });
 
-    it('should scroll to bottom when calling scrollBottom', () => {
+    it("should scroll to bottom when calling scrollBottom", () => {
       let scrollBottom;
-      const storeController = (controllers) => { ({ scrollBottom } = controllers); };
+      const storeController = (controllers) => {
+        ({ scrollBottom } = controllers);
+      };
 
       render(<TestComponent provideControllers={storeController} />);
 
@@ -145,10 +146,12 @@ describe('react-stay-scrolled', () => {
       expect(isDomScrolled(container.firstChild)).to.equal(true);
     });
 
-    it('should stay scrolled when calling stayScrolled and starting scrolled', async () => {
+    it("should stay scrolled when calling stayScrolled and starting scrolled", async () => {
       let stayScrolled;
       let isScrolled;
-      const storeController = (controllers) => { ({ stayScrolled, isScrolled } = controllers); };
+      const storeController = (controllers) => {
+        ({ stayScrolled, isScrolled } = controllers);
+      };
 
       await new Promise((resolve) => {
         render(
@@ -168,10 +171,12 @@ describe('react-stay-scrolled', () => {
       expect(isDomScrolled(container.firstChild)).to.equal(true);
     });
 
-    it('should not stay scrolled when calling stayScrolled and not starting scrolled', () => {
+    it("should not stay scrolled when calling stayScrolled and not starting scrolled", () => {
       let stayScrolled;
       let isScrolled;
-      const storeController = (controllers) => { ({ stayScrolled, isScrolled } = controllers); };
+      const storeController = (controllers) => {
+        ({ stayScrolled, isScrolled } = controllers);
+      };
 
       render(<TestComponent provideControllers={storeController} />);
 
@@ -180,7 +185,7 @@ describe('react-stay-scrolled', () => {
       expect(isDomScrolled(container.firstChild)).to.equal(false);
     });
 
-    it('should memoize default runScroll', () => {
+    it("should memoize default runScroll", () => {
       // https://github.com/dotcore64/react-stay-scrolled/issues/107
       const cb = spy();
 
@@ -206,19 +211,21 @@ describe('react-stay-scrolled', () => {
       expect(cb.callCount).to.equal(1);
     });
 
-    it('should stay scrolled when adding new elements', (done) => {
+    it("should stay scrolled when adding new elements", (done) => {
       const Messages = () => {
         const [messages, setMessages] = useState([]);
         const ref = useRef(null);
 
         const addMessage = () => {
-          setMessages((prevMessages) => [...prevMessages, 'foo']);
+          setMessages((prevMessages) => [...prevMessages, "foo"]);
         };
 
         const { stayScrolled } = useStayScrolled(ref);
 
-        // eslint-disable-next-line react-hooks/set-state-in-effect -- test simulates messages streaming in
-        useEffect(() => { addMessage(); }, []);
+        useEffect(() => {
+          // eslint-disable-next-line react-hooks/set-state-in-effect -- test simulates messages streaming in
+          addMessage();
+        }, []);
         useLayoutEffect(() => {
           expect(stayScrolled()).to.equal(true);
           expect(isDomScrolled(ref.current)).to.equal(true);
@@ -234,13 +241,15 @@ describe('react-stay-scrolled', () => {
         const style = {
           height: testHeight,
           width: 100,
-          overflow: 'auto',
+          overflow: "auto",
         };
 
         return (
           <div ref={ref} style={style}>
             {messages.map((message, i) => (
-              <div key={i} style={{ height: testScrollHeight, width: 100 }}>{message}</div>  
+              <div key={i} style={{ height: testScrollHeight, width: 100 }}>
+                {message}
+              </div>
             ))}
           </div>
         );
@@ -250,13 +259,15 @@ describe('react-stay-scrolled', () => {
     });
   });
 
-  describe('accuracy', () => {
-    it('should stay scrolled only when below inaccuracy', (done) => {
+  describe("accuracy", () => {
+    it("should stay scrolled only when below inaccuracy", (done) => {
       const inaccuracy = 5;
 
       const recursion = (i) => {
         let stayScrolled;
-        const storeController = (controllers) => { ({ stayScrolled } = controllers); };
+        const storeController = (controllers) => {
+          ({ stayScrolled } = controllers);
+        };
 
         const onScroll = () => {
           const dom = container.firstChild;
@@ -277,20 +288,22 @@ describe('react-stay-scrolled', () => {
           }
         };
 
-        render(<TestComponent
-          initialScroll={i}
-          inaccuracy={inaccuracy}
-          onScroll={onScroll}
-          provideControllers={storeController}
-        />);
+        render(
+          <TestComponent
+            initialScroll={i}
+            inaccuracy={inaccuracy}
+            onScroll={onScroll}
+            provideControllers={storeController}
+          />,
+        );
       };
 
       recursion(1);
     }).timeout(5000);
   });
 
-  describe('invariant', () => {
-    it('should throw when calling scrollBottom from mounted child', (done) => {
+  describe("invariant", () => {
+    it("should throw when calling scrollBottom from mounted child", (done) => {
       const Child = ({ scrollBottom }) => {
         useLayoutEffect(() => {
           expect(scrollBottom).to.throw(Error, /hook finished mounting/);
@@ -319,13 +332,17 @@ describe('react-stay-scrolled', () => {
     });
   });
 
-  describe('animation', () => {
+  describe("animation", () => {
     const testAnimation = (runScroll, Component = TestComponent) => {
       let scrollBottom;
-      const storeController = (controllers) => { ({ scrollBottom } = controllers); };
+      const storeController = (controllers) => {
+        ({ scrollBottom } = controllers);
+      };
       const onScroll = spy(() => {
         expect(container.firstChild.scrollTop).to.be.above(0);
-        expect(container.firstChild.scrollTop).to.be.most(maxScrollTop(container.firstChild));
+        expect(container.firstChild.scrollTop).to.be.most(
+          maxScrollTop(container.firstChild),
+        );
       });
 
       render(
@@ -351,7 +368,9 @@ describe('react-stay-scrolled', () => {
     const testAnimationOnScrolled = (runScroll, Component = TestComponent) => {
       let scrollBottom;
       let isScrolled;
-      const storeController = (controllers) => { ({ scrollBottom, isScrolled } = controllers); };
+      const storeController = (controllers) => {
+        ({ scrollBottom, isScrolled } = controllers);
+      };
       const onScroll = spy();
 
       render(
@@ -374,20 +393,28 @@ describe('react-stay-scrolled', () => {
       });
     };
 
-    it('should animate scrolling with react-spring', () => testAnimation(springRunScroll, SpringTestComponent));
+    it("should animate scrolling with react-spring", () =>
+      testAnimation(springRunScroll, SpringTestComponent));
 
-    it('should report isScrolled correctly when using react-spring', () => testAnimationOnScrolled(springRunScroll, SpringTestComponent));
+    it("should report isScrolled correctly when using react-spring", () =>
+      testAnimationOnScrolled(springRunScroll, SpringTestComponent));
 
-    it('should animate scrolling with dynamics.js', () => testAnimation(dynamicsRunScroll));
+    it("should animate scrolling with dynamics.js", () =>
+      testAnimation(dynamicsRunScroll));
 
-    it('should report isScrolled correctly when using dynamics.js', () => testAnimationOnScrolled(dynamicsRunScroll));
+    it("should report isScrolled correctly when using dynamics.js", () =>
+      testAnimationOnScrolled(dynamicsRunScroll));
 
-    it('should animate scrolling with velocity', () => testAnimation(velocityRunScroll));
+    it("should animate scrolling with velocity", () =>
+      testAnimation(velocityRunScroll));
 
-    it('should report isScrolled correctly when using velocity', () => testAnimationOnScrolled(velocityRunScroll));
+    it("should report isScrolled correctly when using velocity", () =>
+      testAnimationOnScrolled(velocityRunScroll));
 
-    it('should animate scrolling with jquery', () => testAnimation(jqueryRunScroll));
+    it("should animate scrolling with jquery", () =>
+      testAnimation(jqueryRunScroll));
 
-    it('should report isScrolled correctly when using jquery', () => testAnimationOnScrolled(jqueryRunScroll));
+    it("should report isScrolled correctly when using jquery", () =>
+      testAnimationOnScrolled(jqueryRunScroll));
   });
 });

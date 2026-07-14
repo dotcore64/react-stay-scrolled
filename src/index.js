@@ -1,42 +1,57 @@
-import {
-  useEffect, useLayoutEffect, useRef, useCallback,
-} from 'react';
-import invariant from 'tiny-invariant';
-import memoize from 'memoize-one';
+import { useEffect, useLayoutEffect, useRef, useCallback } from "react";
+import invariant from "tiny-invariant";
+import memoize from "memoize-one";
 
-import { maxScrollTop } from './util.js';  
+import { maxScrollTop } from "./util.js";
 
- 
-const defaultRunScroll = memoize((domRef) => (offset) => { domRef.current.scrollTop = offset; });
-const useIsomorphicLayoutEffect = globalThis.window === undefined ? useEffect : useLayoutEffect;
+const defaultRunScroll = memoize((domRef) => (offset) => {
+  domRef.current.scrollTop = offset;
+});
+const useIsomorphicLayoutEffect =
+  globalThis.window === undefined ? useEffect : useLayoutEffect;
 
-export default (domRef, {
-  initialScroll = null,
-  inaccuracy = 0,
-  runScroll = defaultRunScroll(domRef),
-} = {}) => {
+export default (
+  domRef,
+  {
+    initialScroll = null,
+    inaccuracy = 0,
+    runScroll = defaultRunScroll(domRef),
+  } = {},
+) => {
   const wasScrolled = useRef(null);
 
   const isScrolled = useCallback(
-    () => (domRef.current === null ? false : Math.ceil(domRef.current.scrollTop) >= maxScrollTop(domRef.current) - inaccuracy),
+    () =>
+      domRef.current === null
+        ? false
+        : Math.ceil(domRef.current.scrollTop) >=
+          maxScrollTop(domRef.current) - inaccuracy,
     [inaccuracy],
   );
 
   useEffect(() => {
-    const onScroll = () => { wasScrolled.current = isScrolled(); };
+    const onScroll = () => {
+      wasScrolled.current = isScrolled();
+    };
 
-    domRef.current.addEventListener('scroll', onScroll);
+    domRef.current.addEventListener("scroll", onScroll);
     // in react 17 the cleanup can happen after the element gets unmounted
-    return () => domRef.current?.removeEventListener('scroll', onScroll);
+    return () => domRef.current?.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scroll = useCallback((position) => {
-    invariant(domRef.current !== null, `Trying to scroll to the bottom, but no element was found.
-      Did you call this scrollBottom before the component with this hook finished mounting?`);
+  const scroll = useCallback(
+    (position) => {
+      invariant(
+        domRef.current !== null,
+        `Trying to scroll to the bottom, but no element was found.
+      Did you call this scrollBottom before the component with this hook finished mounting?`,
+      );
 
-    const offset = Math.min(maxScrollTop(domRef.current), position);
-    runScroll(offset);
-  }, [runScroll]);
+      const offset = Math.min(maxScrollTop(domRef.current), position);
+      runScroll(offset);
+    },
+    [runScroll],
+  );
 
   const scrollBottom = useCallback(() => {
     scroll(Number.POSITIVE_INFINITY);

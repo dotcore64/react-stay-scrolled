@@ -1,28 +1,27 @@
-import { useRef, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useSpring, animated } from '@react-spring/web';
+import { useRef, useMemo } from "react";
+import PropTypes from "prop-types";
+import { useSpring, animated } from "@react-spring/web";
 
-import Velocity from 'velocity-animate';
+import Velocity from "velocity-animate";
 // eslint-disable-next-line import/no-named-as-default -- default export is the intended value
-import jQuery from 'jquery';
-import dynamics from 'dynamics.js';
+import jQuery from "jquery";
+import dynamics from "dynamics.js";
 
-import useStayScrolled from 'react-stay-scrolled';
+import useStayScrolled from "react-stay-scrolled";
 
-import {
-  easing,
-  duration,
-  testHeight,
-  testScrollHeight,
-} from './constants.js';  
+import { easing, duration, testHeight, testScrollHeight } from "./constants.js";
 
 export const dynamicsRunScroll = (dom) => (offset) => {
-  dynamics.animate(dom.current, {
-    scrollTop: offset,
-  }, {
-    type: dynamics[easing],
-    duration,
-  });
+  dynamics.animate(
+    dom.current,
+    {
+      scrollTop: offset,
+    },
+    {
+      type: dynamics[easing],
+      duration,
+    },
+  );
 };
 
 export const jqueryRunScroll = (dom) => (offset) => {
@@ -30,23 +29,20 @@ export const jqueryRunScroll = (dom) => (offset) => {
 };
 
 export const velocityRunScroll = (dom) => (offset) => {
-  Velocity(
-    dom.current.firstChild,
-    'scroll',
-    {
-      container: dom.current,
-      easing,
-      duration,
-      offset,
-    },
-  );
+  Velocity(dom.current.firstChild, "scroll", {
+    container: dom.current,
+    easing,
+    duration,
+    offset,
+  });
 };
 
-export const springRunScroll = (animateScroll, dom) => (offset) => animateScroll.start({
-  scrollTop: offset,
-  from: { scrollTop: dom.current ? dom.current.scrollTop : 0 },
-  config: { duration },
-});
+export const springRunScroll = (animateScroll, dom) => (offset) =>
+  animateScroll.start({
+    scrollTop: offset,
+    from: { scrollTop: dom.current ? dom.current.scrollTop : 0 },
+    config: { duration },
+  });
 
 export const SpringTestComponent = ({
   provideControllers,
@@ -54,7 +50,10 @@ export const SpringTestComponent = ({
   getRunScroll,
 }) => {
   const ref = useRef(null);
-  const [{ scrollTop }, animateScroll] = useSpring(() => ({ scrollTop: 0 }), []);
+  const [{ scrollTop }, animateScroll] = useSpring(
+    () => ({ scrollTop: 0 }),
+    [],
+  );
   const runScroll = useMemo(
     // eslint-disable-next-line react-hooks/refs -- ref is only read later, inside the returned scroll callback
     () => (getRunScroll ? getRunScroll(animateScroll, ref) : undefined),
@@ -66,11 +65,16 @@ export const SpringTestComponent = ({
   const style = {
     height: testHeight,
     width: 100,
-    overflow: 'auto',
+    overflow: "auto",
   };
 
   return (
-    <animated.div ref={ref} style={style} onScroll={onScroll} scrollTop={scrollTop}>
+    <animated.div
+      ref={ref}
+      style={style}
+      onScroll={onScroll}
+      scrollTop={scrollTop}
+    >
       <div style={{ height: testScrollHeight, width: 100 }} />
     </animated.div>
   );
