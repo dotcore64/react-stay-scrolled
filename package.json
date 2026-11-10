@@ -82,7 +82,7 @@
     "mocha": "^12.0.3",
     "prettier": "3.9.10",
     "prop-types": "^15.8.1",
-    "puppeteer": "^25.10.0",
+    "puppeteer": "^25.16.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "rollup": "^4.63.1",
