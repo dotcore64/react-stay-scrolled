@@ -85,7 +85,7 @@
     "puppeteer": "^25.16.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "rollup": "^4.63.1",
+    "rollup": "^4.68.0",
     "sinon": "^22.1.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.1",
